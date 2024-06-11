@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JOKES</title>
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <div class="form-box">
+    <form method="post">
+      <div class="category half-width">
+        <h1>Select Category</h1>
+        <input type="radio" id="any" name="options" value="any" checked/>
+        <label for="any">Any</label>
+
+        <input type="radio" id="custom" name="options" value="custom" />
+        <label for="custom">Custom</label>
+
+        <div id="customOptions">
+          <input type="checkbox" id="dark" name="dark" />
+          <label for="dark"> Dark</label>
+
+          <input type="checkbox" id="misc" name="misc" />
+          <label for="misc"> Misc</label>
+
+          <input type="checkbox" id="pun" name="pun" />
+          <label for="pun"> Pun </label>
+
+          <input type="checkbox" id="programming" name="programming" />
+          <label for="programming"> Programming</label>
+        </div>
+      </div>
+
+      <div class="joke-type half-width">
+        <h1>Joke Type</h1>
+        <input type="radio" id="onePart" name="parts" value="onePart" />
+        <label for="onePart">One-Part</label>
+
+        <input type="radio" id="twoPart" name="parts" value="twoPart" />
+        <label for="twoPart">Two-Part</label>
+      </div>
+
+      <div class ="containString half-width">
+        <h1>String</h1>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea> 
+      </div>
+
+      <div class ="language half-width">
+        <h1>Language</h1>
+        <input type="radio" id="english" name="language"  value="english" />
+        <label for="english">english</label>
+
+        <input type="radio" id="german" name="language" value="german" />
+        <label for="german">german</label>
+        
+        <input type="radio" id="spanish" name="language"  value="spanish" />
+        <label for="spanish">spanish</label>
+        
+        <input type="radio" id="french" name="language" value="french" />
+        <label for="french">french</label>
+      </div>
+      <button class="glow-on-hover">
+        <input id="get" type="submit" value="GET JOKE" formaction="/get-joke" />
+      </button>
+
+    </form>
+  </div>
+  <div class="joke">
+    <% if(locals.twoPart){ %>
+    <p><%= `${locals.joke.setup}`%></p>
+
+    <p><%= `${locals.joke.delivery}`%></p>
+    <% } else{ %>
+    <p><%= ` ${joke} `%></p>
+
+    <% } %>
+  </div>
+
+  <script>
+    // Get the "Any" and "Custom" radio buttons
+    const anyRadio = document.getElementById("any");
+    const customRadio = document.getElementById("custom");
+
+    // Get the container for the additional options
+    const customOptionsContainer = document.getElementById("customOptions");
+
+    // Add event listener to the radio buttons
+    anyRadio.addEventListener("change", toggleCustomOptions);
+    customRadio.addEventListener("change", toggleCustomOptions);
+
+    // Function to toggle the display of the custom options
+    function toggleCustomOptions() {
+      if (customRadio.checked) {
+        customOptionsContainer.style.display = "block";
+      } else {
+        customOptionsContainer.style.display = "none";
+      }
+    }
+
+    // Call the function initially to set the initial state
+    toggleCustomOptions();
+  </script>
+</html>
